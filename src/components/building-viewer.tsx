@@ -1,6 +1,5 @@
 import { FC } from "react";
 
-
 export const BuildingViewer: FC = () => {
-    return <h1>BV</h1>;
-}
+  return <h1>Hello building viewer!</h1>;
+};
