@@ -4,8 +4,10 @@ import * as MAPBOX from "mapbox-gl";
 import { Building, GisParameters, LngLat } from "./types";
 import { MAPBOX_KEY } from "../../config";
 import { User } from "firebase/auth";
-import { AnyAaaaRecord } from "dns";
+
 import { CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer";
+import { MapDatabase } from "./map-database";
+import { Events } from "../../middleware/event-handler";
 
 export class MapScene {
   private components = new OBC.Components();
@@ -14,10 +16,12 @@ export class MapScene {
   private center: LngLat = {lat: 0, lng: 0 };
   private map: MAPBOX.Map;
   private labels: {[id: string]: CSS2DObject} = {};
+  private database = new MapDatabase();
+  private events: Events;
 
 
-
-  constructor(container: HTMLDivElement) {
+  constructor(container: HTMLDivElement, events: Events) {
+    this.events = events;
     const config = this.getConfig(container);
     this.map = this.createMap(config);
     this.initializeComponent(config);
@@ -36,11 +40,19 @@ export class MapScene {
     this.labels = {};
   }
 
-  
+  async getAllBuildings(user: User) {
+    const buildings = await this.database.getBuildings(user);
+    if (!this.components) return;
+    this.addToScene(buildings);
+  }
 
-  private createHtmlElement() {
+  private createHtmlElement(id: string) {
     const div = document.createElement("div");
     div.textContent = "🏢";
+    div.onclick = () => {
+      console.log(`Building id: ${id}`)
+      this.events.trigger({type: "OPEN_BUILDING", payload: id})
+    };
     div.classList.add("thumbnail");
     return div;
 
@@ -51,13 +63,14 @@ export class MapScene {
     const userID = user.uid;
     const building = {userID, lat, lng, id: "" };
     console.log(building);
+    building.id = await  this.database.add(building);
     this.addToScene([building]);
   }
 
   private addToScene(buildings: Building[]) {
     for (const building of buildings) {
       const {id, lng, lat} = building;
-      const htmlElement = this.createHtmlElement();
+      const htmlElement = this.createHtmlElement(id);
       const label = new CSS2DObject(htmlElement);
 
       const center = MAPBOX.MercatorCoordinate.fromLngLat(
@@ -126,7 +139,8 @@ export class MapScene {
   }
 
   private getConfig(container: HTMLDivElement) {
-    const center = [7.730277288470006, 63.110047455818375] as [number, number];
+    
+    const center = [21.0048696, 52.2230185] as [number, number];
     this.center = { lng: center[0], lat: center[1] };
     return {
       container,

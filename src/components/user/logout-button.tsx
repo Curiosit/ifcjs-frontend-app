@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Button from "@mui/material/Button";
 import { useAppContext } from "../../middleware/context-provider";
-
+import "./../front.css";
 export const LogOutButton: FC = () => {
   const dispatch = useAppContext()[1];
   const onLogoutClick = () => {
@@ -10,7 +10,7 @@ export const LogOutButton: FC = () => {
 
   return (
     <>
-      <Button onClick={onLogoutClick} variant="contained">
+      <Button  onClick={onLogoutClick} variant="contained">
         Log out
       </Button>
     </>

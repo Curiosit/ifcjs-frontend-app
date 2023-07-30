@@ -4,10 +4,11 @@ import { Navigate } from "react-router-dom";
 import { useAppContext } from "../../middleware/context-provider";
 import { Button } from "@mui/material";
 import "./map.css";
+import "./../front.css";
 export const MapViewer: FC = () => {
   const [state, dispatch] = useAppContext();
   const containerRef = useRef(null);
-  const { user } = state;
+  const { user, building } = state;
   const [isCreating, setIsCreating] = useState(false);
 
   const onToggleCreate = () => {
@@ -36,6 +37,11 @@ export const MapViewer: FC = () => {
     return <Navigate to="/login" />;
   }
 
+  if (building) {
+    const url = `/building?=${building}`;
+    return <Navigate to={url}/>
+  }
+
   return (
     <>
       <div onContextMenu={onCreate} className="full-screen" ref={containerRef} />
@@ -46,7 +52,7 @@ export const MapViewer: FC = () => {
             <Button onClick={onToggleCreate}>cancel</Button>
           </div>
         )}
-        <div className="gis-button-container">
+        <div className="front-button-container">
       <Button onClick={onToggleCreate} variant="contained">Create Building</Button>
       <LogOutButton />
       </div>

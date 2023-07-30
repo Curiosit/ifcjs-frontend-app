@@ -12,7 +12,7 @@ export interface Building {
   id: string;
   lat: number;
   lng: number;
-  
+  userID: string;
 }
 
 export interface LngLat {

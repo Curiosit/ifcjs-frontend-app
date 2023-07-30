@@ -9,5 +9,5 @@ export const LogInButton: FC = () => {
     dispatch({ type: "LOGIN" });
   };
 
-  return <Button onClick={onLoginClick}>Log in</Button>;
+  return <Button  variant="contained"  onClick={onLoginClick}>Log in</Button>;
 };
