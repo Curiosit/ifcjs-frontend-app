@@ -1,16 +1,30 @@
-import { FC, useRef, useEffect } from "react";
+import { FC, useRef, useEffect, useState } from "react";
 import { LogOutButton } from "../user/logout-button";
 import { Navigate } from "react-router-dom";
 import { useAppContext } from "../../middleware/context-provider";
-
+import { Button } from "@mui/material";
+import "./map.css";
 export const MapViewer: FC = () => {
   const [state, dispatch] = useAppContext();
-  const canvasRef = useRef(null);
+  const containerRef = useRef(null);
+  const { user } = state;
+  const [isCreating, setIsCreating] = useState(false);
+
+  const onToggleCreate = () => {
+    setIsCreating(!isCreating);
+  }
+
+  const onCreate = () => {
+    if (!isCreating) {
+      dispatch({ type: "ADD_BUILDING", payload: user });
+      setIsCreating(false);
+    }
+  }
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (canvas && state.user) {
-      dispatch({ type: "START_MAP", payload: canvas });
+    const container = containerRef.current;
+    if (container && user) {
+      dispatch({ type: "START_MAP", payload: {container, user} });  
     }
 
     return () => {
@@ -18,15 +32,23 @@ export const MapViewer: FC = () => {
     };
   }, []);
 
-  if (!state.user) {
+  if (!user) {
     return <Navigate to="/login" />;
   }
 
   return (
     <>
-      <div className="full-screen" ref={canvasRef} />
+      <div className="full-screen" ref={containerRef} />
+      {isCreating &&
+        (
+          <div className="overlay">
+            <p>Right click to create a new Building, or </p>
+            <Button onClick={onToggleCreate}>cancel</Button>
+          </div>
+        )}
+      <Button onClick={onToggleCreate} variant="contained">Create Building</Button>
       <LogOutButton />
-      
+    
     </>
   );
 };
