@@ -46,12 +46,12 @@ export class MapScene {
     this.addToScene(buildings);
   }
 
-  private createHtmlElement(id: string) {
+  private createHtmlElement(building: Building) {
     const div = document.createElement("div");
     div.textContent = "🏢";
     div.onclick = () => {
-      console.log(`Building id: ${id}`)
-      this.events.trigger({type: "OPEN_BUILDING", payload: id})
+      console.log(`Building id: ${building.id}`)
+      this.events.trigger({type: "OPEN_BUILDING", payload: building})
     };
     div.classList.add("thumbnail");
     return div;
@@ -61,7 +61,7 @@ export class MapScene {
     const {lat, lng} = this.clickedCoordinates;
     console.log ({lat, lng});
     const userID = user.uid;
-    const building = {userID, lat, lng, id: "" };
+    const building = {userID, lat, lng, id: "", name: "" };
     console.log(building);
     building.id = await  this.database.add(building);
     this.addToScene([building]);
@@ -70,7 +70,7 @@ export class MapScene {
   private addToScene(buildings: Building[]) {
     for (const building of buildings) {
       const {id, lng, lat} = building;
-      const htmlElement = this.createHtmlElement(id);
+      const htmlElement = this.createHtmlElement(building);
       const label = new CSS2DObject(htmlElement);
 
       const center = MAPBOX.MercatorCoordinate.fromLngLat(

@@ -16,7 +16,7 @@ export class MapDatabase {
         const dbInstance = getFirestore(getApp());
         const {lat, lng, userID} = building;
         const result = await addDoc(collection(dbInstance, this.buildings), {
-            lat,lng,userID,
+            lat,lng,userID,name,
         });
         return result.id;
     }
