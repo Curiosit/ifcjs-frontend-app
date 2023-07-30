@@ -15,7 +15,7 @@ export const MapViewer: FC = () => {
   }
 
   const onCreate = () => {
-    if (!isCreating) {
+    if (isCreating) {
       dispatch({ type: "ADD_BUILDING", payload: user });
       setIsCreating(false);
     }
@@ -38,7 +38,7 @@ export const MapViewer: FC = () => {
 
   return (
     <>
-      <div className="full-screen" ref={containerRef} />
+      <div onContextMenu={onCreate} className="full-screen" ref={containerRef} />
       {isCreating &&
         (
           <div className="overlay">
@@ -46,9 +46,10 @@ export const MapViewer: FC = () => {
             <Button onClick={onToggleCreate}>cancel</Button>
           </div>
         )}
+        <div className="gis-button-container">
       <Button onClick={onToggleCreate} variant="contained">Create Building</Button>
       <LogOutButton />
-    
+      </div>
     </>
   );
 };

@@ -16,4 +16,8 @@ export const executeCore = (action: Action) => {
   if (action.type === "REMOVE_MAP") {
     return mapHandler.remove();
   }
+  if (action.type === "ADD_BUILDING") {
+    return mapHandler.addBuilding(action.payload);
+  }
 };
+

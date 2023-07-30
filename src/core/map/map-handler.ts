@@ -1,3 +1,4 @@
+import { User } from "firebase/auth";
 import { MapScene } from "./map-scene";
 
 export const mapHandler = {
@@ -17,4 +18,12 @@ export const mapHandler = {
       this.viewer = null;
     }
   },
+
+
+  addBuilding(user: User) {
+    console.log("Adding building");
+    if(this.viewer) {
+      this.viewer.addBuilding(user);
+    }
+  }
 };
