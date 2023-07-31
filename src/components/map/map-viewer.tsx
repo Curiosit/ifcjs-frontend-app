@@ -38,7 +38,7 @@ export const MapViewer: FC = () => {
   }
 
   if (building) {
-    const url = `/building?=${building}`;
+    const url = `/building?=${building.id}`;
     return <Navigate to={url}/>
   }
 
