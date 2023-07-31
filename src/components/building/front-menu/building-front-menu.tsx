@@ -3,6 +3,8 @@ import { FC } from "react";
 import "./building-front-menu.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { BuildingInfoMenu } from "./front-menu-content/building-info-menu";
+import { useAppContext } from "../../../middleware/context-provider";
+import { Navigate } from "react-router-dom";
 
 export type FrontMenuMode = "BuildingInfo";
 
@@ -11,10 +13,13 @@ export const BuildingFrontMenu: FC<{
   open: boolean;
   onToggleMenu: (active: boolean) => void;
 }> = ({ mode, open, onToggleMenu }) => {
+  
+  const [state,dispatch] = useAppContext();
+  const {user} = state;
+ 
   if (!open) {
     return <></>;
   }
-
   const content = new Map<FrontMenuMode, any>();
   const buildingInfoMenu = <BuildingInfoMenu onToggleMenu={onToggleMenu} />;
   content.set("BuildingInfo", buildingInfoMenu);

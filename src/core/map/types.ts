@@ -1,3 +1,5 @@
+import { StringLiteral } from "typescript";
+
 export interface GisParameters {
   container: HTMLDivElement;
   accessToken: string;
@@ -14,6 +16,13 @@ export interface Building {
   lng: number;
   userID: string;
   buildingName: string;
+  models: Model[];
+}
+
+export interface Model {
+  name: string;
+  id: string;
+
 }
 
 export interface LngLat {
