@@ -5,8 +5,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import { BuildingInfoMenu } from "./front-menu-content/building-info-menu";
 import { useAppContext } from "../../../middleware/context-provider";
 import { Navigate } from "react-router-dom";
+import { FrontMenuMode } from "../types";
+import { ModelListMenu } from "./front-menu-content/model-list-menu";
 
-export type FrontMenuMode = "BuildingInfo";
+
 
 export const BuildingFrontMenu: FC<{
   mode: FrontMenuMode;
@@ -21,11 +23,14 @@ export const BuildingFrontMenu: FC<{
     return <></>;
   }
   const content = new Map<FrontMenuMode, any>();
-  const buildingInfoMenu = <BuildingInfoMenu onToggleMenu={onToggleMenu} />;
-  content.set("BuildingInfo", buildingInfoMenu);
+  
+  content.set("BuildingInfo", <BuildingInfoMenu onToggleMenu={onToggleMenu} />);
+  content.set("ModelList", <ModelListMenu />);
+
 
   const titles = {
     BuildingInfo: "Building Information",
+    ModelList: "Model List",
   };
 
   const title = titles[mode];

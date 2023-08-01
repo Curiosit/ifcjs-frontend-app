@@ -30,6 +30,7 @@ export const databaseHandler = {
 
   updateBuilding: async (building: Building) => {
     const dbinstance = getFirestore(getApp());
+    console.log(building);
     await updateDoc(doc(dbinstance, "buildings", building.id), {
       ...building,
     });
@@ -47,10 +48,14 @@ export const databaseHandler = {
     
   },
   deleteModel: async (model: Model, building:Building, events:Events) => {
+    console.log(model);
+    console.log(building);
     const appInstance = getApp();
     const storageInstance = getStorage(appInstance);
+    console.log(model.id);
     const fileRef = ref(storageInstance, model.id);
     await deleteObject(fileRef);
+    console.log(building);
     events.trigger({type: "UPDATE_BUILDING", payload: building});
     
   }

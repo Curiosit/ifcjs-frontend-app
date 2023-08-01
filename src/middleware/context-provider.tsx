@@ -20,20 +20,19 @@ const appContext = createContext<[State, React.Dispatch<Action>]>([
 export const ContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, setState] = useReducer(reducer, initialState);
 
-  const events = new Events();
-  /* events.on("OPEN_BUILDING", (buildingID: string) => {
-    setState({type:"OPEN_BUILDING", payload:buildingID});
-  }); */
-  for(const type of ActionList) {
-    events.on(type, (payload:any) => {
-      setState({type, payload})
-    })
-  }
+  
 
   const dispatch = (value: Action) => {
     setState(value);
     executeCore(value, events);
   };
+
+  const events = new Events();
+  for(const type of ActionList) {
+    events.on(type, (payload:any) => {
+      dispatch({type, payload})
+    })
+  }
 
   return (
     <appContext.Provider value={[state, dispatch]}>

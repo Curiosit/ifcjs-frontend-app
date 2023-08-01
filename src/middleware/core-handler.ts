@@ -27,5 +27,16 @@ export const executeCore = (action: Action, events: Events) => {
   if (action.type === "UPDATE_BUILDING") {
     return databaseHandler.updateBuilding(action.payload);
   }
+  if (action.type === "UPLOAD_MODEL") {
+    const {model,file,building} = action.payload;
+    return databaseHandler.uploadModel(model,file,building, events);
+  }
+  if (action.type === "DELETE_MODEL") {
+    
+    const {model,building} = action.payload;
+    console.log(building);
+    console.log(model);
+    return databaseHandler.deleteModel(model,building, events);
+  }
 };
 
