@@ -28,6 +28,10 @@ if(!building || !user) {
                 const id = `${file.name}-${performance.now()}`;
                 const model = {name, id};
                 newBuilding.models.push(model);
+                console.log(model);
+                console.log({
+                    model, file, building: newBuilding
+                });
                 dispatch({type: "UPLOAD_MODEL", payload: {
                     model, file, building: newBuilding
                 }})
@@ -49,7 +53,8 @@ if(!building || !user) {
         dispatch({type: "DELETE_MODEL", payload: {model, building: newBuilding}});
 
     }
-
+    console.log(building.models);
+    console.log(building.models.length);
     return (<div>
 
         {building.models.length ? (
