@@ -3,9 +3,10 @@ import { CssBaseline } from "@mui/material";
 import { FC, useState } from "react";
 import { useAppContext } from "../../middleware/context-provider";
 import { Navigate } from "react-router-dom";
-import { BuildingTopBar } from "./building-topbar";
-import { BuildingDrawer } from "./building-drawer";
-import { getDrawerHeader } from "./mui-utils";
+import { BuildingTopBar } from "./sidebar/building-topbar";
+import { BuildingDrawer } from "./sidebar/building-drawer";
+import { BuildingViewport } from "./viewport/building-viewport";
+import { getDrawerHeader } from "./sidebar/mui-utils";
 import { BuildingFrontMenu} from "./front-menu/building-front-menu";
 import { FrontMenuMode } from "./types";
 export const BuildingViewer: FC = () => {
@@ -65,6 +66,7 @@ export const BuildingViewer: FC = () => {
         mode={frontMenuMode}
         
         />
+        <BuildingViewport />
 
         
       </Box>

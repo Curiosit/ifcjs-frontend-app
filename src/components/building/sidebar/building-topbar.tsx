@@ -1,6 +1,6 @@
 import { AppBar, Box, Button } from "@mui/material";
 import { FC, useState } from "react";
-import { useAppContext } from "../../middleware/context-provider";
+import { useAppContext } from "../../../middleware/context-provider";
 import { Navigate } from "react-router-dom";
 import { getAppBar } from "./mui-utils";
 import {Toolbar, IconButton, Typography} from "@mui/material";

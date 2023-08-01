@@ -28,9 +28,7 @@ export const MapViewer: FC = () => {
       dispatch({ type: "START_MAP", payload: {container, user} });  
     }
 
-    return () => {
-      dispatch({ type: "REMOVE_MAP" });
-    };
+    
   }, []);
 
   if (!user) {

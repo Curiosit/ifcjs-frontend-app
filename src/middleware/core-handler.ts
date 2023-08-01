@@ -2,6 +2,7 @@ import { mapHandler } from "../core/map/map-handler";
 import { databaseHandler } from "../core/db/db-handler";
 import { Action } from "./actions";
 import { Events } from "./event-handler";
+import { buildingHandler } from "../core/building/building-handler";
 
 export const executeCore = (action: Action, events: Events) => {
   if (action.type === "LOGIN") {
@@ -14,7 +15,7 @@ export const executeCore = (action: Action, events: Events) => {
     const {user, container} = action.payload;
     return mapHandler.start(container, user, events);
   }
-  if (action.type === "REMOVE_MAP") {
+  if (action.type === "REMOVE_MAP" || action.type === "OPEN_BUILDING") {
     return mapHandler.remove();
   }
   if (action.type === "ADD_BUILDING") {
@@ -34,9 +35,14 @@ export const executeCore = (action: Action, events: Events) => {
   if (action.type === "DELETE_MODEL") {
     
     const {model,building} = action.payload;
-    console.log(building);
-    console.log(model);
+    
     return databaseHandler.deleteModel(model,building, events);
+  }
+  if (action.type === "START_BUILDING") {
+    return buildingHandler.start(action.payload);
+  }
+  if (action.type === "CLOSE_BUILDING") {
+    return buildingHandler.remove();
   }
 };
 

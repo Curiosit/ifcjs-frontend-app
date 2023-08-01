@@ -1,6 +1,6 @@
 import {FC} from "react";
 import { useAppContext } from "../../../../middleware/context-provider";
-import { BuildingDrawer } from "../../building-drawer";
+import { BuildingDrawer } from "../../sidebar/building-drawer";
 import "./front-menu-content.css";
 import {Button, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Clear";
