@@ -6,33 +6,38 @@ import CutIcon from "@mui/icons-material/ContentCut";
 import RulerIcon from "@mui/icons-material/Straighten";
 import ExplodeIcon from "@mui/icons-material/ImportExport";
 
-export function getBottombarTools(
-    state: State,
-    dispatch: React.Dispatch<Action>,
+export function getBottombarTools (): Tool[] {
+    const tools = [
+        {
+            name: "Clipping planes",
+            active: false,
+            icon: <CutIcon />,
+            action: () => {
+                console.log("Cutting");
+            }
+        },
+        {
+            name: "Measure",
+            active: false,
+            icon: <RulerIcon />,
+            action: () => {
+                console.log("measurin");
+            }
+        },
+        {
+            name: "Explode",
+            active: false,
+            icon: <ExplodeIcon />,
 
-): Tool[] 
-    {
-        return [
-            {
-                name: "Clipping planes",
-                icon: <CutIcon />,
-                action: () => {
-                    console.log("Cutting");
-                }
-            },
-            {
-                name: "Measure",
-                icon: <RulerIcon />,
-                action: () => {
-                    console.log("measurin");
-                }
-            },
-            {
-                name: "Explode",
-                icon: <ExplodeIcon />,
-                action: () => {
-                    console.log("exploding");
+            action: (dispatch: any) => {
+                console.log("EXPLODE");
+                const tool = tools.find((tool) => tool.name === "Explosion");
+                if (tool) {
+                    tool.active = !tool.active;
+                    dispatch({ type: "EXPLODE_MODEL", payload: tool.active });
                 }
             }
-        ]
-    }
+        }
+    ];
+    return tools;
+}

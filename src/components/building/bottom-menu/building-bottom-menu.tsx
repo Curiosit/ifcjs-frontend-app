@@ -8,7 +8,7 @@ export const BuildingBottomMenu: FC = () => {
 
 const [state,dispatch] = useAppContext();
 
-    const tools = getBottombarTools(state,dispatch);
+    const tools = getBottombarTools();
 
 
 

@@ -13,6 +13,7 @@ export const ActionList= [
   "DELETE_MODEL",
   "START_BUILDING",
   "CLOSE_BUILDING",
+  "EXPLODE_MODEL",
 ] as const;
 type ActionListType = typeof ActionList;
 export type ActionType = ActionListType[number];

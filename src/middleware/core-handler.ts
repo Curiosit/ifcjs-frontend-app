@@ -46,5 +46,9 @@ export const executeCore = async (action: Action, events: Events) => {
   if (action.type === "CLOSE_BUILDING") {
     return buildingHandler.remove();
   }
+  if (action.type === "EXPLODE_MODEL") {
+    console.log("explode");
+    return buildingHandler.explode(action.payload);
+  }
 };
 

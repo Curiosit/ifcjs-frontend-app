@@ -119,7 +119,15 @@ export class BuildingScene {
     this.fragments.culler.needsUpdate = true;
   }
 
-
+  explode(active: boolean) {
+    const exploder = this.fragments.exploder;
+    if (active) {
+      exploder.explode();
+    } else {
+      exploder.reset();
+    }
+  }
+  
   async convertIfcToFragments(ifc: File) {
     let fragments = new OBC.Fragments(this.components);
     fragments.ifcLoader.settings.optionalCategories.length = 0;
