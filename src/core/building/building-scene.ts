@@ -8,7 +8,16 @@ import { unzip } from "unzipit";
 export class BuildingScene {
   private components: OBC.Components;
   private fragments: OBC.Fragments;
-  private database = new BuildingDatabase();
+  database = new BuildingDatabase();
+
+
+  private sceneEvents: { name: any; action: any }[] = [];
+
+  get container() {
+    const domElement = this.components.renderer.get().domElement;
+    return domElement.parentElement as HTMLDivElement;
+  }
+
   constructor(container: HTMLDivElement, building: Building) {
     this.components = new OBC.Components();
 
@@ -41,17 +50,73 @@ export class BuildingScene {
 
     const grid = new OBC.SimpleGrid(this.components);
     this.components.tools.add(grid);
-
     this.fragments = new OBC.Fragments(this.components);
     this.components.tools.add(this.fragments);
+    this.fragments.highlighter.active = true;
+    const selectMat = new THREE.MeshBasicMaterial({ color: 0x1976d2 });
+    const preselectMat = new THREE.MeshBasicMaterial({
+      color: 0x1976d2,
+      opacity: 0.5,
+      transparent: true,
+    });
+    this.fragments.highlighter.add("selection", [selectMat]);
+    this.fragments.highlighter.add("preselection", [preselectMat]);
+
+    //this.fragments.highlighter = new OBC.Fragments(this.components);
+
+
+    
+    this.fragments.culler.enabled = true;
+    this.components.tools.add(this.fragments);
+    this.setupEvents();
     this.loadAllModels(building);
+
+    
   }
+  
 
   dispose() {
+    this.toggleEvents(false);
     this.components.dispose();
     (this.components as any) = null;
     (this.fragments as any) = null;
 
+  }
+
+  private setupEvents() {
+    this.sceneEvents = [
+      { name: "mouseup", action: this.updateCulling },
+      { name: "wheel", action: this.updateCulling },
+      { name: "mousemove", action: this.preselect },
+      { name: "click", action: this.select }
+
+    ];
+    this.toggleEvents(true);
+  }
+  private preselect = () => {
+    //console.log("preselect")
+    this.fragments.highlighter.highlight("preselection");
+  }
+  private select = () => {
+    console.log("click");
+    console.log(this.fragments.highlighter);
+    this.fragments.highlighter.highlight("selection");
+    
+    console.log(this.fragments.highlighter);
+  }
+  private toggleEvents(active: boolean) {
+    for (const event of this.sceneEvents) {
+      if (active) {
+        window.addEventListener(event.name, event.action);
+
+      } else {
+        window.removeEventListener(event.name, event.action);
+      }
+    }
+  }
+
+  private updateCulling = () => {
+    this.fragments.culler.needsUpdate = true;
   }
 
 
@@ -117,12 +182,12 @@ export class BuildingScene {
 
   private async loadAllModels(building: Building) {
     const modelsURLs = await this.database.getModels(building);
-    for(const url of modelsURLs) {
-      const {entries} = await unzip(url);
+    for (const url of modelsURLs) {
+      const { entries } = await unzip(url);
 
       const fileNames = Object.keys(entries);
-      for(let i = 0; i < fileNames.length; i++) {
-        
+      for (let i = 0; i < fileNames.length; i++) {
+
         const name = fileNames[i];
         if (!name.includes(".glb")) continue;
 
@@ -139,11 +204,19 @@ export class BuildingScene {
         await this.fragments.load(geometryURL, dataURL);
 
         this.fragments.culler.needsUpdate = true;
+        this.fragments.highlighter.update();
+        
+        
       }
+
+
     }
   }
+
 }
 
 
-  
+
+
+
 

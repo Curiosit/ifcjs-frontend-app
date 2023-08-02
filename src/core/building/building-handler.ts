@@ -24,4 +24,19 @@ export const buildingHandler = {
     }
     return this.viewer.convertIfcToFragments(ifc);
   },
+
+   async deleteModels(id:string[]) {
+    if(this.viewer) {
+       await this.viewer.database.deleteModels(id);
+    }
+   },
+
+   async refreshModels(building:Building) {
+    if(this.viewer){
+      const container = this.viewer.container;
+      this.viewer.dispose();
+      this.viewer = null;
+      this.viewer = new BuildingScene(container, building);
+    }
+   }
 };
