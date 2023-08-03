@@ -7,6 +7,7 @@ import { useAppContext } from "../../../middleware/context-provider";
 import { Navigate } from "react-router-dom";
 import { FrontMenuMode } from "../types";
 import { ModelListMenu } from "./front-menu-content/model-list-menu";
+import { FloorplanMenu } from "./front-menu-content/floorplan-menu";
 
 
 
@@ -26,11 +27,14 @@ export const BuildingFrontMenu: FC<{
   
   content.set("BuildingInfo", <BuildingInfoMenu onToggleMenu={onToggleMenu} />);
   content.set("ModelList", <ModelListMenu />);
-
+  //content.set("Properties", <PropertiesMenu />);
+  content.set("Floorplans", <FloorplanMenu />);
 
   const titles = {
     BuildingInfo: "Building Information",
     ModelList: "Model List",
+    Properties: "Properties",
+    Floorplans: "Floorplans",
   };
 
   const title = titles[mode];

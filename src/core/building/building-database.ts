@@ -5,20 +5,18 @@ import { ModelDatabase } from "./dexie-utils";
 
 export class BuildingDatabase {
     private db = new ModelDatabase();
-        
-   
+
+
     async getModels(building: Building) {
-        this.db.open();
+        await this.db.open();
         const appInstance = getApp();
-        const storageInstance = getStorage(appInstance);
+        const instance = getStorage(appInstance);
 
-        const urls: string[] = [];
-        
-        for(const model of building.models) {
-
-            
-            const url = await this.getModelURL(storageInstance, model.id);
-            urls.push(url); 
+        const urls: { id: string; url: string }[] = [];
+        for (const model of building.models) {
+            const url = await this.getModelURL(instance, model.id);
+            const id = model.id;
+            urls.push({ url, id });
         }
 
         this.db.close();
@@ -27,7 +25,7 @@ export class BuildingDatabase {
     }
 
     private async getModelURL(storageInstance: FirebaseStorage, id: string) {
-        if(this.isModelCached(id)) {
+        if (this.isModelCached(id)) {
             return this.getModelFromLocalCache(id);
         } else {
             return this.getModelFromFirebaseStorage(storageInstance, id);
@@ -42,17 +40,17 @@ export class BuildingDatabase {
         return fileUrl;
     }
 
-    private isModelCached(id:string) {
+    private isModelCached(id: string) {
         const stored = localStorage.getItem(id);
         return stored !== null;
     }
-    private async getModelFromLocalCache(id:string) {
+    private async getModelFromLocalCache(id: string) {
         const found = await this.db.models.where("id").equals(id).toArray();
         const file = found[0].file;
         console.log("Dexie model");
         return URL.createObjectURL(file);
     }
-    private async cacheModel(id:string, url:string) {
+    private async cacheModel(id: string, url: string) {
         const time = performance.now().toString();
         localStorage.setItem(id, time);
         const rawData = await fetch(url);
@@ -63,7 +61,7 @@ export class BuildingDatabase {
     }
     async clearCache(building: Building) {
         await this.db.open();
-        for(const model of building.models) {
+        for (const model of building.models) {
             localStorage.removeItem(model.id);
         }
 
@@ -74,13 +72,13 @@ export class BuildingDatabase {
 
     async deleteModels(ids: string[]) {
         await this.db.open();
-        for(const id of ids) {
+        for (const id of ids) {
             if (this.isModelCached(id)) {
                 localStorage.removeItem(id);
                 await this.db.models.where("id").equals(id).delete();
-    
+
             }
         }
-        
+
     }
 }

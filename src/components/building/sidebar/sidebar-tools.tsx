@@ -1,6 +1,7 @@
 import MapIcon from "@mui/icons-material/Map";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ErrorIcon from "@mui/icons-material/GppMaybe";
+import PropertiesIcon from "@mui/icons-material/Info";
 import FloorplanIcon from "@mui/icons-material/FindInPage";
 import ModelsIcon from "@mui/icons-material/HolidayVillage";
 import ListIcon from "@mui/icons-material/ViewList";
@@ -8,6 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Action } from "../../../middleware/actions";
 import { State } from "../../../middleware/state";
 import { FrontMenuMode } from "../types";
+import { Tool } from "../../../core/map/types";
 
 interface SideTool {
   name: string;
@@ -15,60 +17,64 @@ interface SideTool {
   action: () => void;
 }
 
-export function getSidebarTools(
-  state: State,
-  dispatch: React.Dispatch<Action>,
-  toggleMenu: (active: boolean, mode?: FrontMenuMode) => void
-): SideTool[] {
+export function getSidebarTools(): Tool[] {
   return [
+
     {
-      name: "Info",
-      icon: <ListIcon />,
-      action: () => {
-        toggleMenu(true, "BuildingInfo");
-      },
+    name: "Info",
+    active: false,
+    icon: <ListIcon />,
+    action: ({ onToggleMenu }) => {
+      onToggleMenu(true, "BuildingInfo");
     },
-    {
-      name: "Models",
-      icon: <ModelsIcon />,
-      action: () => {
-        toggleMenu(true, "ModelList");
-      },
+  },
+  {
+    name: "Models",
+    active: false,
+    icon: <ModelsIcon />,
+    action: ({ onToggleMenu }) => {
+      onToggleMenu(true, "ModelList");
     },
-    {
-      name: "Floorplans",
-      icon: <FloorplanIcon />,
-      action: () => {
-        console.log("Models!");
-      },
+  },
+  {
+    name: "Floorplans",
+    active: false,
+    icon: <FloorplanIcon />,
+    action: ({ onToggleMenu }) => {
+      onToggleMenu(true, "Floorplans");
     },
-    {
-      name: "Issues",
-      icon: <ErrorIcon />,
-      action: () => {
-        console.log("Models!");
-      },
+  },
+  {
+    name: "Properties",
+    active: false,
+    icon: <PropertiesIcon />,
+    action: ({ onToggleMenu }) => {
+      onToggleMenu(true, "Properties");
     },
-    {
-      name: "Map",
-      icon: <MapIcon />,
-      action: () => {
-        dispatch({ type: "CLOSE_BUILDING" });
-      },
+  },
+  {
+    name: "Map",
+    active: false,
+    icon: <MapIcon />,
+    action: ({ dispatch }) => {
+      dispatch({ type: "CLOSE_BUILDING" });
     },
-    {
-      name: "Delete building",
-      icon: <DeleteIcon />,
-      action: () => {
-        dispatch({ type: "DELETE_BUILDING", payload: state.building });
-      },
+  },
+  {
+    name: "Delete building",
+    active: false,
+    icon: <DeleteIcon />,
+    action: ({ dispatch, state }) => {
+      dispatch({ type: "DELETE_BUILDING", payload: state.building });
     },
-    {
-      name: "Log out",
-      icon: <LogoutIcon />,
-      action: () => {
-        dispatch({ type: "LOGOUT" });
-      },
+  },
+  {
+    name: "Log out",
+    active: false,
+    icon: <LogoutIcon />,
+    action: ({ dispatch }) => {
+      dispatch({ type: "LOGOUT" });
     },
-  ];
+  },
+];
 }

@@ -14,13 +14,13 @@ export class MapDatabase {
 
     async add(building: Building) {
         const dbInstance = getFirestore(getApp());
-        const {userID, lat, lng, id, buildingName} = building;
-        console.log(this.buildings);
+        const {userID, lat, lng, id, buildingName, models} = building;
+        console.log(models);
         const result = await addDoc(collection(dbInstance, this.buildings),{ 
-          userID, lat, lng, id, buildingName,
+          userID, lat, lng, id, buildingName,models
         });
         console.log({ 
-          userID, lat, lng, id, buildingName,
+          userID, lat, lng, id, buildingName, models
         });
         return result.id;
     }

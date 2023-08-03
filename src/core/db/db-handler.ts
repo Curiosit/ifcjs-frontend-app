@@ -34,16 +34,19 @@ export const databaseHandler = {
       await deleteObject(fileRef);
       ids.push(model.id);
     }
+    console.log(ids);
     await buildingHandler.deleteModels(ids);
+    console.log("CLOSE_BUILDING");
     events.trigger({type: "CLOSE_BUILDING"});
   },
 
   updateBuilding: async (building: Building) => {
     const dbinstance = getFirestore(getApp());
     console.log(building);
-    await updateDoc(doc(dbinstance, "buildings", building.id), {
+    const result = await updateDoc(doc(dbinstance, "buildings", building.id), {
       ...building,
     });
+    console.log(result);
     
 
   },
@@ -52,9 +55,11 @@ export const databaseHandler = {
   uploadModel: async (model: Model, file:File, building:Building, events:Events) => {
     const appInstance = getApp();
     const storageInstance = getStorage(appInstance);
+    console.log(storageInstance);
     const fileRef = ref(storageInstance, model.id);
-    await uploadBytes(fileRef, file);
-    await buildingHandler.refreshModels(building);
+    const result = await uploadBytes(fileRef, file);
+    console.log(result);
+    await buildingHandler.refreshModels(building,events);
     events.trigger({type: "UPDATE_BUILDING", payload: building});
     
   },
@@ -67,7 +72,7 @@ export const databaseHandler = {
     const fileRef = ref(storageInstance, model.id);
     await deleteObject(fileRef);
     await buildingHandler.deleteModels([model.id]);
-    await buildingHandler.refreshModels(building);
+    await buildingHandler.refreshModels(building, events);
     console.log(building);
     events.trigger({type: "UPDATE_BUILDING", payload: building});
     

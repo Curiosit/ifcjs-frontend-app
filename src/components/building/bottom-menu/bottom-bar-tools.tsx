@@ -39,5 +39,19 @@ export function getBottombarTools (): Tool[] {
             }
         }
     ];
-    return tools;
+    const findTool = (name: string) => {
+        const tool = tools.find((tool) => tool.name === name);
+        if (!tool) throw new Error("Tool not found!");
+        return tool;
+      };
+    
+      const deactivateAllTools = (dispatch: any, name: string) => {
+        for (const tool of tools) {
+          if (tool.active && tool.name !== name) {
+            tool.action(dispatch);
+          }
+        }
+      };
+    
+      return tools;
 }

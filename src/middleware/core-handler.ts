@@ -30,7 +30,8 @@ export const executeCore = async (action: Action, events: Events) => {
   }
   if (action.type === "UPLOAD_MODEL") {
     const {model,file,building} = action.payload;
-    const zipFile = await buildingHandler.convertIfcToFragments(file)
+    const zipFile = await buildingHandler.convertIfcToFragments(file);
+    console.log(zipFile);
     return databaseHandler.uploadModel(model,zipFile,building, events);
   }
   if (action.type === "DELETE_MODEL") {
@@ -41,7 +42,7 @@ export const executeCore = async (action: Action, events: Events) => {
   }
   if (action.type === "START_BUILDING") {
     const { container, building } = action.payload;
-    return buildingHandler.start(container, building);
+    return buildingHandler.start(container, building, events);
   }
   if (action.type === "CLOSE_BUILDING") {
     return buildingHandler.remove();
@@ -49,6 +50,11 @@ export const executeCore = async (action: Action, events: Events) => {
   if (action.type === "EXPLODE_MODEL") {
     console.log("explode");
     return buildingHandler.explode(action.payload);
+  }
+  if (action.type === "TOGGLE_FLOORPLAN") {
+    const { active, floorplan } = action.payload;
+    console.log(floorplan);
+    return buildingHandler.toggleFloorplan(active, floorplan);
   }
 };
 

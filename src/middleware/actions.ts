@@ -14,6 +14,8 @@ export const ActionList= [
   "START_BUILDING",
   "CLOSE_BUILDING",
   "EXPLODE_MODEL",
+  "UPDATE_FLOORPLANS",
+  "TOGGLE_FLOORPLAN",
 ] as const;
 type ActionListType = typeof ActionList;
 export type ActionType = ActionListType[number];

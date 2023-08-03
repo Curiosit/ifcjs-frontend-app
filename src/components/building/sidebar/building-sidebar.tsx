@@ -9,6 +9,7 @@ import {
 import { getSidebarTools } from "./sidebar-tools";
 import { useAppContext } from "../../../middleware/context-provider";
 import { FrontMenuMode } from "../types";
+const tools = getSidebarTools();
 
 export const BuildingSidebar: FC<{
   open: boolean;
@@ -17,13 +18,13 @@ export const BuildingSidebar: FC<{
   const { open, onToggleMenu } = props;
   const [state, dispatch] = useAppContext();
 
-  const tools = getSidebarTools(state, dispatch, onToggleMenu);
+ 
 
   return (
     <List>
       {tools.map((tool) => (
         <ListItem
-          onClick={tool.action}
+          onClick={() => tool.action({ onToggleMenu, state, dispatch })}
           key={tool.name}
           disablePadding
           sx={{ display: "block" }}

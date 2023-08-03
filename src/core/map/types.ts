@@ -14,9 +14,10 @@ export interface Building {
   id: string;
   lat: number;
   lng: number;
+  models: Model[];
   userID: string;
   buildingName: string;
-  models: Model[];
+  
 }
 
 export interface Model {
@@ -35,4 +36,14 @@ export interface Tool {
   active: boolean;
   icon: any;
   action: (...args: any) => void;
+}
+
+export interface Floorplan {
+  name: string;
+  id: string;
+}
+
+export interface Property {
+  name: string;
+  value: string;
 }
