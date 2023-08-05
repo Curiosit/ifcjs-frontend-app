@@ -97,6 +97,7 @@ export class BuildingScene {
     /* this.fragmentProperties = 
     this.spatialTree = new OBC.FragmentSpatialTree(this.fragmentProperties);
     this.spatialTree.generate(); */
+    
   }
   
 
@@ -332,7 +333,7 @@ export class BuildingScene {
       const { entries } = await unzip(url);
 
       const fileNames = Object.keys(entries);
-
+      
       const properties = await entries["properties.json"].json();
       const allTypes = await entries["all-types.json"].json();
       const modelTypes = await entries["model-types.json"].json();
