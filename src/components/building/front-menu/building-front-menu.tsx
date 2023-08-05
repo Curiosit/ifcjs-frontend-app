@@ -8,8 +8,9 @@ import { Navigate } from "react-router-dom";
 import { FrontMenuMode } from "../types";
 import { ModelListMenu } from "./front-menu-content/model-list-menu";
 import { FloorplanMenu } from "./front-menu-content/floorplan-menu";
-
-
+import { PropertiesMenu } from "./front-menu-content/properties-menu-content";
+import { QuantityMenu } from "./front-menu-content/quantity";
+import { SpatialTree } from "./front-menu-content/spatial-tree";
 
 export const BuildingFrontMenu: FC<{
   mode: FrontMenuMode;
@@ -27,14 +28,18 @@ export const BuildingFrontMenu: FC<{
   
   content.set("BuildingInfo", <BuildingInfoMenu onToggleMenu={onToggleMenu} />);
   content.set("ModelList", <ModelListMenu />);
-  //content.set("Properties", <PropertiesMenu />);
+  content.set("Properties", <PropertiesMenu />);
   content.set("Floorplans", <FloorplanMenu />);
+  content.set("Quantity", <QuantityMenu />);
+  content.set("SpatialTree", <SpatialTree />);
 
   const titles = {
     BuildingInfo: "Building Information",
     ModelList: "Model List",
     Properties: "Properties",
     Floorplans: "Floorplans",
+    Quantity: "Quantity Takeoff",
+    SpatialTree: "Spatial Tree",
   };
 
   const title = titles[mode];

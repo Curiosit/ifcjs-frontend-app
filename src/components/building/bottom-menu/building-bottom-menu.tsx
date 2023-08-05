@@ -4,22 +4,27 @@ import "./building-bottom-menu.css"
 import { getBottombarTools } from "./bottom-bar-tools"
 import { useAppContext } from "../../../middleware/context-provider"
 
+const tools = getBottombarTools();
+
 export const BuildingBottomMenu: FC = () => {
+  const dispatch = useAppContext()[1];
 
-const [state,dispatch] = useAppContext();
-
-    const tools = getBottombarTools();
-
-
-
-    return (
-        <Card className="bottom-menu">
-
-            {tools.map((tool) => (
-                <IconButton onClick={tool.action} key={tool.name}>
-                    {tool.icon}
-                    </IconButton>
-            ))}
-        </Card>
-    );
+  return (
+    <Card className="bottom-menu">
+      {tools.map((tool) => {
+        return (
+          <IconButton
+            color={tool.active ? "primary" : "default"}
+            onClick={() => { 
+              console.log(tool.active);
+              tool.action(dispatch)
+            }}
+            key={tool.name}
+          >
+            {tool.icon}
+          </IconButton>
+        );
+      })}
+    </Card>
+  );
 };

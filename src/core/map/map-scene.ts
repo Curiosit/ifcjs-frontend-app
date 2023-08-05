@@ -61,7 +61,7 @@ export class MapScene {
     const {lat, lng} = this.clickedCoordinates;
     console.log ({lat, lng});
     const userID = user.uid;
-    const building = {userID, lat, lng, id: "", buildingName: "", models: [] };
+    const building = {models: [] , userID, lat, lng, id: "", buildingName: "", };
     console.log(building);
     building.id = await  this.database.add(building);
     this.addToScene([building]);

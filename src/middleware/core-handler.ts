@@ -48,7 +48,7 @@ export const executeCore = async (action: Action, events: Events) => {
     return buildingHandler.remove();
   }
   if (action.type === "EXPLODE_MODEL") {
-    console.log("explode");
+    console.log("core explode");
     return buildingHandler.explode(action.payload);
   }
   if (action.type === "TOGGLE_FLOORPLAN") {
@@ -56,5 +56,12 @@ export const executeCore = async (action: Action, events: Events) => {
     console.log(floorplan);
     return buildingHandler.toggleFloorplan(active, floorplan);
   }
+  if (action.type === "TOGGLE_CLIPPER") {
+    return buildingHandler.toggleClippingPlanes(action.payload);
+  }
+  if (action.type === "TOGGLE_DIMENSIONS") {
+    return buildingHandler.toggleDimensions(action.payload);
+  }
+  
 };
 

@@ -1,18 +1,19 @@
 .front-menu {
-    position: absolute;
-    height: 80vh;
-    min-width: 60%;
-    z-index: 2;
-  }
-  
-  .front-menu-content {
-    margin: 1rem;
-  }
-  
-  .front-menu-header {
-    display: flex;
-  }
-  
-  .front-menu-header > Button {
-    margin-left: auto;
-  }
+  position: absolute;
+  height: 80vh;
+  overflow-y: auto !important;
+  min-width: 30rem;
+  z-index: 2;
+}
+
+.front-menu-content {
+  margin: 1rem;
+}
+
+.front-menu-header {
+  display: flex;
+}
+
+.front-menu-header > Button {
+  margin-left: auto;
+}

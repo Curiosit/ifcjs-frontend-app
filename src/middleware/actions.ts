@@ -6,16 +6,18 @@ export const ActionList= [
   "REMOVE_MAP",
   "ADD_BUILDING",
   "OPEN_BUILDING",
+  "START_BUILDING",
+  "DELETE_BUILDING",
   "CLOSE_BUILDING",
   "UPDATE_BUILDING",
-  "DELETE_BUILDING",
   "UPLOAD_MODEL",
   "DELETE_MODEL",
-  "START_BUILDING",
-  "CLOSE_BUILDING",
   "EXPLODE_MODEL",
-  "UPDATE_FLOORPLANS",
+  "TOGGLE_CLIPPER",
+  "TOGGLE_DIMENSIONS",
   "TOGGLE_FLOORPLAN",
+  "UPDATE_FLOORPLANS",
+  "UPDATE_PROPERTIES",
 ] as const;
 type ActionListType = typeof ActionList;
 export type ActionType = ActionListType[number];

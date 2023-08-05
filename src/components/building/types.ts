@@ -2,4 +2,6 @@ export type FrontMenuMode =
   | "BuildingInfo"
   | "ModelList"
   | "Properties"
-  | "Floorplans";
+  | "SpatialTree"
+  | "Floorplans"
+  | "Quantity";

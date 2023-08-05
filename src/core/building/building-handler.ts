@@ -51,4 +51,15 @@ export const buildingHandler = {
       this.viewer.toggleFloorplan(active, floorplan);
     }
   },
+  toggleClippingPlanes(active: boolean) {
+    if (this.viewer) {
+      this.viewer.toggleClippingPlanes(active);
+    }
+  },
+
+  toggleDimensions(active: boolean) {
+    if (this.viewer) {
+      this.viewer.toggleDimensions(active);
+    }
+  },
 };

@@ -4,8 +4,10 @@ import ErrorIcon from "@mui/icons-material/GppMaybe";
 import PropertiesIcon from "@mui/icons-material/Info";
 import FloorplanIcon from "@mui/icons-material/FindInPage";
 import ModelsIcon from "@mui/icons-material/HolidayVillage";
+import CalcIcon from "@mui/icons-material/Calculate";
 import ListIcon from "@mui/icons-material/ViewList";
 import DeleteIcon from "@mui/icons-material/Delete";
+
 import { Action } from "../../../middleware/actions";
 import { State } from "../../../middleware/state";
 import { FrontMenuMode } from "../types";
@@ -50,6 +52,22 @@ export function getSidebarTools(): Tool[] {
     icon: <PropertiesIcon />,
     action: ({ onToggleMenu }) => {
       onToggleMenu(true, "Properties");
+    },
+  },
+  {
+    name: "Quantity Takeoff",
+    active: false,
+    icon: <CalcIcon />,
+    action: ({ onToggleMenu }) => {
+      onToggleMenu(true, "Quantity");
+    },
+  },
+  {
+    name: "Spatial Tree",
+    active: false,
+    icon: <ListIcon />,
+    action: ({ onToggleMenu }) => {
+      onToggleMenu(true, "SpatialTree");
     },
   },
   {
