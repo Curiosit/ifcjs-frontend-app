@@ -1,5 +1,5 @@
 ## Simple BIM IFC file viewer built with IFC.js library
-This project has been created following the IFCJS.io course using React and Typescript. The project uses Firebase for storing building information and 3d models.
+This project has been created following the IFCJS.io course using React and Typescript. The project uses Firebase for storing building information and 3d models, and Firebase Auth for logging in users.
 
 ![./bv.jpg](https://github.com/Curiosit/ifcjs-frontend-app/blob/main/bv.JPG)
 
