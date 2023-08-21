@@ -30,7 +30,7 @@ export const BuildingTopBar: FC<{
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Building viewer
+              React + IFC.js = Web BIM Viewer
             </Typography>
           </Toolbar>
         </AppBar>

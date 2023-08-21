@@ -13,8 +13,8 @@ export const Dashboard: FC = () => {
       </div>
       <div className="front-overlay">
         <div><img src="favicon.png" alt="" /></div>
-        <div>SLAD.AI</div>
-        <div>IFC.JS CARBON FOOTPRINT ESTIMATOR</div>
+        <div>React + IFC.js = Web BIM Viewer</div>
+        <div></div>
       </div>
     </div>
   );

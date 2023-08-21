@@ -48,7 +48,14 @@ export class MapScene {
 
   private createHtmlElement(building: Building) {
     const div = document.createElement("div");
-    div.textContent = "🏢";
+    var elem = document.createElement("img");
+    elem.setAttribute("src", "favicon.png");
+    elem.setAttribute("height", "50");
+    elem.setAttribute("width", "50");
+    elem.setAttribute("alt", "building");
+    div.appendChild(elem);
+    
+    
     div.onclick = () => {
       console.log(`Building id: ${building.id}`)
       this.events.trigger({type: "OPEN_BUILDING", payload: building})

@@ -17,9 +17,8 @@
 
 .thumbnail {
   background: rgba (230,230,230, 0.7);
-  padding: 10px;
-  border-radius: 100%;
-  border: 5px solid white;
+  
+  
   pointer-events: all;
   transition: background-color 0.2s ease-in-out;
 }
@@ -32,7 +31,7 @@
 .ifcjs-dimension-label {
   background-color: black;
   font-family: sans-serif;
-  color: white;
+  color: rgb(247, 211, 9);
   padding: 8px;
   border-radius: 8px;
   pointer-events: all;
@@ -44,7 +43,7 @@
 }
 
 .ifcjs-dimension-preview {
-  background-color: #ffffff;
+  background-color: rgb(247, 211, 9);
   width: 2rem;
   height: 2rem;
   opacity: 0.3;

@@ -4,6 +4,7 @@
   overflow-y: auto !important;
   min-width: 30rem;
   z-index: 2;
+  
 }
 
 .front-menu-content {
@@ -12,6 +13,7 @@
 
 .front-menu-header {
   display: flex;
+  
 }
 
 .front-menu-header > Button {
